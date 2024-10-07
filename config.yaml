@@ -1,0 +1,138 @@
+esphome:
+  name: capteur-citerne
+  friendly_name: Capteur citerne
+  on_boot:
+    then:
+      - script.execute: consider_deep_sleep
+
+esp32:
+  board: esp32-c6-devkitc-1
+  flash_size: 4MB
+  variant: esp32c6
+  framework:
+    type: esp-idf
+    version: "5.3.1"
+    platform_version: 6.9.0
+    sdkconfig_options:
+      CONFIG_ESPTOOLPY_FLASHSIZE_4MB: y
+
+# Enable logging
+logger:
+  level: INFO
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "CHANGE_ME"
+
+ota:
+  - platform: esphome
+    password: "CHANGE_ME"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+#  ap:
+#    ssid: "Capteur-Citerne Fallback Hotspot"
+#    password: "whx8K34CJ23L"
+
+captive_portal:
+  
+external_components:
+  - source:
+      # https://github.com/lboue/esphome/blob/adc_oneshot/esphome/components/adc
+      type: git
+      url: https://github.com/lboue/esphome
+      ref: adc_oneshot
+    components: [ adc ]
+    refresh: 0s
+
+deep_sleep:
+  id: deep_sleep_1
+  sleep_duration: 10min
+
+uart:
+  tx_pin: GPIO5
+  rx_pin: GPIO4
+  baud_rate: 9600
+
+i2c:
+  sda: GPIO6
+  scl: GPIO7
+  scan: false
+
+# Built-in button on GPIO9
+binary_sensor:
+#  - platform: gpio
+#    pin:
+#      number: GPIO9
+#      mode: INPUT_PULLUP
+#      inverted: true
+#    name: "C6 Button"
+#    filters:
+#      - delayed_on: 10ms
+#      - delayed_off: 10ms
+  # Will only pick up a value if this device is configured in Home Assistant > Integrations
+  # If the device isn't configured, or Home Assistant is offline, it'll default to false
+  - platform: homeassistant
+    id: prevent_deep_sleep
+    entity_id: input_boolean.prevent_deep_sleep
+
+#light:
+#  - platform: monochromatic
+#    output: led_output
+#    name: "C6 LED"
+
+# Wi-Fi signal strength sensor
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 5s
+  - platform: uptime
+    name: "Uptime"
+  - name: "Battery voltage"
+    platform: adc
+    id: batt_volt
+    pin: GPIO0
+    update_interval: 5s
+    filters:
+      - multiply: 1.99
+  - platform: template
+    name: "Battery level"
+    unit_of_measurement: '%'
+    update_interval: 5s
+    accuracy_decimals: 0
+    lambda: |-
+      return ((id(batt_volt).state-3) /1.2 * 100.00);
+
+  - platform: htu21d
+    model: sht21
+    temperature:
+      name: "Temperature"
+    humidity:
+      name: "Humidity"
+    heater:
+      name: "Heater"
+    update_interval: 5s
+
+  - platform: "a02yyuw"
+    name: "Distance"
+    filters:
+      - throttle: 5s
+
+script:
+  - id: consider_deep_sleep
+    mode: queued
+    then:
+      - delay: 30s
+      - if:
+          condition:
+            binary_sensor.is_on: prevent_deep_sleep
+          then:
+            - logger.log: 'Skipping sleep, per prevent_deep_sleep'
+          else:
+            - deep_sleep.enter: deep_sleep_1
+      - script.execute: consider_deep_sleep
