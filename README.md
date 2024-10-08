@@ -8,12 +8,15 @@ The idea is based on hardware from DFrobot :
 - Optional : a SHT21
 - A 2000mAh LiPo battery
 
-# Step 1 : Create OTA switch in HA
+## Wiring
+![Wiring information](https://raw.githubusercontent.com/tomsbasement/esp32-water-tank-sensor/refs/heads/main/wiring.png)
+
+## Step 1 : Create OTA switch in HA
 Go to HA > Parameters > Devices and services > Input.
 Create a new Switch sensor and call it "Prevent deep sleep".
 Then activate it.
 
-# Step 2 : Add your device to ESPhome
+## Step 2 : Add your device to ESPhome
 Plug your device to your computer with a USB cable while holding the "Boot" button. Once it is plugged in, you can release the button.
 Open your Esphome installation and add a new device, call it "Water tank sensor" or whatever you want.
 Add it as an ESP32 device but don't install it yet, skip all steps.
@@ -21,13 +24,13 @@ Edit the config file and replace it by the one from this repository.
 Just keep OTA key and API key so you can replace "CHANGE_ME" placeholders from the config file of this repo.
 Save the configuration then close it
 
-# Step 3 : Install your device
+## Step 3 : Install your device
 Still in ESPhome, click on the three dots in the right corner of your newly created device and choose "Clean Build Files".
 Once done, click on "Install" in the same menu. Choose the option "Plug into this computer".
 Wait for a few minutes until you have a confirmation the installation was successful.
 Pull the USB plug from the device and put it back in to power cycle it.
 
-# Step 4 : Profit
+## Step 4 : Profit
 Now, go to Home Assistant, you should be prompted to add your device to your installation.
 The device has deep sleep enabled to save energy, so if it becomes unavailable, you just have to plug the USB and put it back in.
 Once it is added to HA, go to Parameters > Devices and services > Input and disable the switch.
