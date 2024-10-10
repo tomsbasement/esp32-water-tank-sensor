@@ -33,6 +33,7 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   fast_connect: true
+  output_power: 16dB
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
 #  ap:
@@ -102,7 +103,9 @@ sensor:
       - multiply: 1.99
   - platform: template
     name: "Battery level"
-    unit_of_measurement: '%'
+    state_class: "measurement"
+    device_class: "battery"
+    unit_of_measurement: "%"
     update_interval: 5s
     accuracy_decimals: 0
     lambda: |-
@@ -119,9 +122,22 @@ sensor:
     update_interval: 5s
 
   - platform: "a02yyuw"
+    id: "water_level"
     name: "Distance"
+    state_class: "measurement"
+    device_class: "distance"
+    unit_of_measurement: "mm"
     filters:
       - throttle: 5s
+  - platform: template
+    name: "Water Tank Level"
+    state_class: "measurement"
+    unit_of_measurement: "%"
+    icon: "mdi:waves"
+    update_interval: 5s
+    accuracy_decimals: 0
+    lambda: |-
+      return ((900 - id(water_level).state) / 850 * 100.00);
 
 script:
   - id: consider_deep_sleep
