@@ -38,3 +38,17 @@ Once it is added to HA, go to Parameters > Devices and services > Input and disa
 
 The ESP32 will poll the temperature, humidity and water height every 5 minutes and then will go to sleep after 30s.
 The battery will charge itself with the PV module so your sensor will be self sufficient.
+
+## Step 5 : Adjust calculation
+In order to get a correct value for your percentage of remaining water, you will need to adjust some calculations :
+
+Adapt this line in your configuration file :
+
+```
+    lambda: |-
+      return ((900 - id(water_level).state) / 850 * 100.00);
+```
+
+And change the values (they are in mm !) according to this schema :
+
+![Calculation](https://raw.githubusercontent.com/tomsbasement/esp32-water-tank-sensor/refs/heads/main/Calculation.png)
