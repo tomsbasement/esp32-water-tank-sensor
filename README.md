@@ -2,11 +2,12 @@
 This project aims to help you creating a water tank level sensor with off the shelf components. It uses esphome for Home Assistant integration.
 The idea is based on hardware from DFrobot :
 
-- ESP32 C6 : https://www.dfrobot.com/product-2771.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
-- Ultrasonic waterproof sensor : https://www.dfrobot.com/product-1935.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
-- PV module (6V - 1A) : https://www.dfrobot.com/product-1775.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
-- Optional : a SHT21
-- A 2000mAh LiPo battery
+- Dfrobot Firebeetle 2 ESP32 C6: https://www.dfrobot.com/product-2771.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
+- Ultrasonic waterproof sensor: https://www.dfrobot.com/product-1935.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
+- PV module (6V - 1A): https://www.dfrobot.com/product-1775.html?tracking=CH2ahHLno922IMb3XFammUzJDnc1pryXEVmuVTHKYGav95g0jDeqjLk90uqz3qqL
+- Optional: a SHT21 : https://s.click.aliexpress.com/e/_DF8JNHP
+- A 2000mAh LiPo battery: https://s.click.aliexpress.com/e/_DDq0fF7
+- PG7 cable glands: https://s.click.aliexpress.com/e/_DDJgjgV 
 
 ## Wiring
 ![Wiring information](https://raw.githubusercontent.com/tomsbasement/esp32-water-tank-sensor/refs/heads/main/wiring.png)
