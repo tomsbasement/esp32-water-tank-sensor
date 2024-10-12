@@ -9,7 +9,8 @@ The idea is based on hardware from DFrobot :
 - A 2000mAh LiPo battery: https://s.click.aliexpress.com/e/_DDq0fF7
 - PG7 cable glands: https://s.click.aliexpress.com/e/_DDJgjgV 
 
-- STL : https://makerworld.com/en/models/697225
+
+- STL for 3D printed enclosure can be downladed here : https://makerworld.com/en/models/697225
 
 ## Wiring
 ![Wiring information](https://raw.githubusercontent.com/tomsbasement/esp32-water-tank-sensor/refs/heads/main/wiring.png)
