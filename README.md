@@ -12,6 +12,10 @@ The idea is based on hardware from DFrobot :
 
 - STL for 3D printed enclosure can be downladed here : https://makerworld.com/en/models/697225
 
+You can find the full video guide here :
+
+[![Make a Water tank level sensor](https://img.youtube.com/vi/Iv-gyi-H778/hqdefault.jpg)](https://youtu.be/Iv-gyi-H778)
+
 ## Wiring
 ![Wiring information](https://raw.githubusercontent.com/tomsbasement/esp32-water-tank-sensor/refs/heads/main/wiring.png)
 
