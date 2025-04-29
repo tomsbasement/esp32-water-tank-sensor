@@ -6,17 +6,19 @@ esphome:
       - script.execute: consider_deep_sleep
 
 esp32:
-  board: esp32-c6-devkitc-1
+  board: esp32-c6-devkitm-1
   flash_size: 4MB
   variant: esp32c6
   framework:
     type: esp-idf
+    version: "5.3.1"
+    platform_version: 6.9.0
     sdkconfig_options:
       CONFIG_ESPTOOLPY_FLASHSIZE_4MB: y
 
 # Enable logging
-logger:
-  level: INFO
+#logger:
+#  level: INFO
 
 # Enable Home Assistant API
 api:
